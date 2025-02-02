@@ -1,0 +1,11 @@
+[package]
+name = "async-string"
+version = "0.1.0"
+edition = "2024"
+
+[build]
+target = "wasm32-wasip2"
+
+[dependencies]
+wit-bindgen = { version= "0.38.0", features = ["async"] }
+wit-bindgen-rt = { version = "0.38.0", features = ["async"] }

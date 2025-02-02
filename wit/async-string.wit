@@ -1,0 +1,14 @@
+package sasync:guest;
+
+interface string-if {
+
+    resource string-rs {
+        /// Returns the name of the SaaS provider
+        string-fn: func() -> string;
+    }
+}
+
+
+world string-guest {
+    export string-if;
+}
