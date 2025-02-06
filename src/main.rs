@@ -1,41 +1,25 @@
+use reqwest::Client;
+use futures::executor::block_on;
 
 
-use bindings::exports::sasync::guest::string_if::{Guest, GuestStringRs};
-use wit_bindgen::generate;
 
+async fn fetch_data(url: &str) -> Result<String, reqwest::Error> {
 
-mod bindings {
-    wit_bindgen::generate!({
-        path: "./wit/async-string.wit",
-        world: "string-guest",
-        async: true,
-    });
+    let client = Client::new(); 
 
-    use super::AsyncString;
-    export!(AsyncString);
+    let response = client.get(url).send().await?;
+
+    let text = response.text().await?;
+
+    Ok(text)
+
 }
-
-pub struct AsyncString;
-
-
-// ✅ Implement `GuestStringRs` for `AsyncString`
-
-impl GuestStringRs for AsyncString {
-
-
-    async fn string_fn(&self) -> String {
-        "success".to_string()
-    }
-    
-    
-}
-
-impl Guest for AsyncString {
-    type StringRs = AsyncString;
-}
-
 
 fn main() {
+    block_on(async_main());
+}
 
-    println!("WASM executed successfully!");
+async fn async_main() {
+    let txt = fetch_data("https://httpbin.org/anything").await;
+    println!("Text: {:?}", txt);
 }

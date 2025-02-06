@@ -1,0 +1,6 @@
+package saas:client;
+
+world client {
+    import wasi:http/proxy@0.2.3;
+}
+

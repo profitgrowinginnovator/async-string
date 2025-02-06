@@ -3,9 +3,10 @@ name = "async-string"
 version = "0.1.0"
 edition = "2024"
 
-[build]
-target = "wasm32-wasip2"
+[target.wasm32-wasip2.dependencies] 
 
 [dependencies]
-wit-bindgen = { version= "0.38.0", features = ["async"] }
-wit-bindgen-rt = { version = "0.38.0", features = ["async"] }
+futures = "0.3.31"
+reqwest = { version = "0.12.12", default-features = false, features = ["rustls-tls"] }
+#wit-bindgen-wrpc = "0.9.0"
+#wrpc-interface-http = "0.31.0"
